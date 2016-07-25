@@ -1,5 +1,7 @@
 # limited
 
+[![Build Status](https://travis-ci.org/StreamJar/Limited.svg?branch=master)](https://travis-ci.org/StreamJar/Limited) [![Coverage Status](https://coveralls.io/repos/github/StreamJar/Limited/badge.svg?branch=master)](https://coveralls.io/github/StreamJar/Limited?branch=master)
+
 As of the time of writing, Beam announced that in just 1 week, they will enable some very strict rate limits for the majority of API endpoints, which essentially means that if a specific IP address hits any one of a group of endpoints (with the same rate limit "bucket") too many times, the request will be blocked until your number of requests resets. This is to ensure that people don't needlessly hit the API too hard.
 
 Unfortunately, this poses a problem for StreamJar because we actively monitor, as of time of writing, almost 2,000 Beam channels. We do need to pull quite a bit of data from the livestreaming platforms we integrate with, from every channel, and so rate limits are a worry for us.
