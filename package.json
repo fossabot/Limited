@@ -1,0 +1,45 @@
+{
+  "name": "limited",
+  "version": "1.0.0",
+  "description": "The easy way to manage Beam rate limits.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StreamJar/Limited.git"
+  },
+  "keywords": [
+    "beam",
+    "ratelimit",
+    "http",
+    "client",
+    "wrapper"
+  ],
+  "author": "Ethan Waite <ethan@streamjar.tv>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/StreamJar/Limited/issues"
+  },
+  "homepage": "https://github.com/StreamJar/Limited#readme",
+  "devDependencies": {
+    "beam-client-node": "^0.5.3",
+    "chai": "^3.5.0",
+    "eslint": "^3.1.1",
+    "eslint-config-airbnb-base": "^4.0.2",
+    "eslint-plugin-import": "^1.11.1",
+    "istanbul": "^0.4.4",
+    "mocha": "^2.5.3",
+    "nock": "^8.0.0",
+    "request": "^2.74.0",
+    "request-promise": "^4.0.2",
+    "sinon": "^1.17.4"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.1",
+    "ioredis": "^2.2.0",
+    "lodash": "^4.14.0",
+    "uuid": "^2.0.2"
+  }
+}
