@@ -1,10 +1,11 @@
 {
-  "name": "limited",
+  "name": "node-limited",
   "version": "1.0.0",
-  "description": "The easy way to manage Beam rate limits.",
+  "description": "Automatic delays and smart query rewriting to deal with Beam's rate limits, in one line of code.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha"
   },
   "repository": {
     "type": "git",
