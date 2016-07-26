@@ -30,6 +30,9 @@ describe('Interceptor', () => {
 				'X-RateLimit-Remaining': 0,
 				'X-RateLimit-Reset': new Date().getTime() + 1000,
 			});
+		limited.once('request', obj => {
+			expect(obj).to.have.keys('bucket', 'wait');
+		});
 		return request.get('https://beam.pro/api/v1/users/current').then(() => {
 			const stub = sinon.stub(global, 'setTimeout', (fn, wait) => {
 				stub.restore();
