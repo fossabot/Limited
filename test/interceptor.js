@@ -6,9 +6,22 @@ const nock = require('nock');
 const https = require('https');
 const request = require('request-promise');
 const Beam = require('beam-client-node');
-const limited = require('../')({ flushTime: 1 });
+const lib = require('../');
 
 describe('Interceptor', () => {
+	let limited;
+	let original;
+	before(() => {
+		original = https.request;
+		https.limitedIntercepted = false;
+		limited = lib({ flushTime: 1 });
+	});
+
+	after(() => {
+		https.request = original;
+		https.limitedIntercepted = false;
+	});
+
 	it('predicts when rate limits shall be hit', done => {
 		nock('https://beam.pro')
 			.get('/api/v1/users/current')

@@ -4,9 +4,23 @@ const nock = require('nock');
 const request = require('request-promise');
 const errors = require('request-promise/errors');
 const expect = require('chai').expect;
-require('../')({ flushTime: 1 });
+const https = require('https');
+const _ = require('lodash');
+const lib = require('../');
 
 describe('Rewriter', () => {
+	let limited;
+	let original;
+	before(() => {
+		original = https.request;
+		https.limitedIntercepted = false;
+		limited = lib({ flushTime: 1 });
+	});
+
+	after(() => {
+		https.request = original;
+	});
+
 	it('rewrites channel lookups by id', done => {
 		nock('https://beam.pro')
 			.get('/api/v1/channels?limit=100&where=id.in.123;456')
@@ -94,5 +108,29 @@ describe('Rewriter', () => {
 			done();
 		});
 		request.get('https://beam.pro/api/v1/channels/456');
+	});
+
+	it('does multiple requests if exceeds maximum of 100', done => {
+		limited.rewriter.flushTime = 2000;
+		let i = 0;
+		const numbers = _.times(101, () => {
+			i++;
+			return i;
+		});
+
+		nock('https://beam.pro')
+			.get(`/api/v1/channels?limit=100&where=id.in.${numbers.slice(0, 100).join(';')}`)
+			.reply(200);
+		nock('https://beam.pro')
+			.get('/api/v1/channels?limit=100&where=id.in.101')
+			.reply(200, () => {
+				done();
+			});
+		numbers.forEach(number => {
+			if (number === 101) {
+				limited.rewriter.flushTime = 1;
+			}
+			request.get(`https://beam.pro/api/v1/channels/${number}`, { json: true });
+		});
 	});
 });
