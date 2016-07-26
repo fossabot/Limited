@@ -50,6 +50,21 @@ require('node-limited')({ redis: { host: '127.0.0.1', port: 6379 } });
 The library uses `ioredis` for your connection. That means that any options you can provide to `ioredis` can also be provided in the `redis` object above. Alternatively, if your project also uses `ioredis` too, you can just pass your connection instead.
 
 ```js
-const conn = new Redis({ host: '127.0.0.1', port: 6379 });
-require('node-limited')({ redis: conn });
+const pub = new Redis({ host: '127.0.0.1', port: 6379 });
+const sub = new Redis({ host: '127.0.0.1', port: 6379 });
+require('node-limited')({ redis: { pub, sub } });
+```
+
+## Advanced usage
+
+If you would like to log what Limited is doing, you can hook into its events.
+
+```js
+const limited = require('node-limited')();
+limited.on('request', result => {
+	console.log(`Query to ${result.bucket} bucket delayed by ${result.wait}ms.`);
+});
+limited.on('rewritten', result => {
+	console.log(`Rewritten query to ${result.path}.`);
+});
 ```
