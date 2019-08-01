@@ -1,6 +1,7 @@
 # limited
 
 [![Build Status](https://travis-ci.org/StreamJar/Limited.svg?branch=master)](https://travis-ci.org/StreamJar/Limited) [![Coverage Status](https://coveralls.io/repos/github/StreamJar/Limited/badge.svg?branch=master)](https://coveralls.io/github/StreamJar/Limited?branch=master)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FStreamJar%2FLimited.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FStreamJar%2FLimited?ref=badge_shield)
 
 Limited is a module that can be dropped in to handle Mixer's rate limits. If a specific IP address hits any one of a group of endpoints (with the same rate limit "bucket") too many times, the request will be blocked until your number of requests resets. This is to ensure that people don't needlessly hit the API too hard.
 
@@ -62,3 +63,7 @@ limited.on('rewritten', result => {
 	console.log(`Rewritten query to ${result.path}.`);
 });
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FStreamJar%2FLimited.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FStreamJar%2FLimited?ref=badge_large)
